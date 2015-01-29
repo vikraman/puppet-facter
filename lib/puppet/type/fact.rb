@@ -1,6 +1,6 @@
 Puppet::Type.newtype(:fact) do
 
-  desc "The fact type to manage /etc/facter.d/facts/$fact.txt"
+  desc "The fact type to manage /etc/facter/facts.d/$fact.txt"
 
   ensurable do
     defaultvalues
@@ -14,5 +14,9 @@ Puppet::Type.newtype(:fact) do
 
   newproperty(:value) do
     desc "The value of the fact"
+  end
+
+  newproperty(:target) do
+    desc "Target txt file to write under /etc/facter/facts.d"
   end
 end
