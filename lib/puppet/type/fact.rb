@@ -12,19 +12,12 @@ Puppet::Type.newtype(:fact) do
     isnamevar
   end
 
-  newproperty(:value) do
+  newproperty(:content) do
     desc "The value of the fact"
   end
 
   newproperty(:target) do
     desc "Target txt file to write under /etc/facter/facts.d"
-
-    defaultto do
-      if @resource.class.defaultprovider.ancestors.include?(Puppet::Provider::ParsedFile)
-        @resource.class.defaultprovider.default_target
-      else
-        nil
-      end
-    end
   end
+
 end
