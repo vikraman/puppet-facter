@@ -7,5 +7,5 @@ Puppet::Type.type(:fact).provide(:parsed,
 ) do
   desc "test"
 
-  record_line :parsed, :fields => %w{name value}, :joiner => '=' do |line|
+  record_line :parsed, :fields => %w{name value}, :joiner => '='
 end
