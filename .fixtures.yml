@@ -1,0 +1,3 @@
+fixtures:
+  repositories:
+    filemapper: "git://github.com/adrienthebo/puppet-filemapper.git"

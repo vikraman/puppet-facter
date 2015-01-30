@@ -18,6 +18,7 @@ Puppet::Type.newtype(:fact) do
 
   newproperty(:target) do
     desc "Target txt file to write under /etc/facter/facts.d"
+    defaultto { @resource[:name] }
   end
 
 end
