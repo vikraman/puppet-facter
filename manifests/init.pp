@@ -1,8 +1,8 @@
 class facter (
   $packge_name     = $facter::params::package_name,
   $ensure          = 'present',
-  $provider        = $facter::params::provider,
-  $install_options = $facter::params::install_options,
+  $provider        = undef,
+  $install_options = undef,
 ) inherits facter::params {
 
   include facter::package

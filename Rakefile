@@ -6,7 +6,6 @@ exclude_paths = [
   "pkg/**/*",
   "vendor/**/*",
   "spec/**/*",
-  "bundle/**/*",
 ]
 
 PuppetLint.configuration.send("disable_80chars")
@@ -29,7 +28,7 @@ end
 desc "Run syntax, lint, and spec tests."
 task :test => [
   :syntax,
-#  :lint,
+  :lint,
   :spec,
 #  :metadata,
 ]

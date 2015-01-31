@@ -1,0 +1,43 @@
+require 'spec_helper'
+
+describe 'facter' do
+  context 'generic configuration' do
+    it { should compile.with_all_deps }
+    it { should contain_class('facter::package') }
+    it { should contain_file('/etc/facter').that_comes_before('File[/etc/facter/facts.d]').with_ensure('directory') }
+    it { should contain_file('/etc/facter/facts.d').with_ensure('directory') }
+  end
+
+  context 'when using distro provider' do
+    context 'on openSUSE, SLE, Debian' do
+      it { should contain_package('facter').with_ensure('present') }
+    end
+
+    context 'on openSUSE Tumbleweed' do
+      let(:facts) do
+        {
+          :operatingsystem => 'OpenSuSE', 
+          :operatingsystemrelease => '13.3',
+        }
+      end
+      let(:params) { { :ensure => 'latest' } }
+      it { should_not contain_package('facter') }
+      it { should contain_package('ruby2.1-rubygem-facter').with_ensure('latest') }
+      it { should contain_package('rubygem-facter').with_ensure('latest') }
+    end
+
+    context 'on Gentoo' do
+      let(:facts) { { :operatingsystem => 'Gentoo' } }
+      it { should contain_package('dev-ruby/facter') }
+      it { should_not contain_package('facter') }
+    end
+  end
+
+  context 'when using gem as provider' do
+    let(:params) { { :provider => 'gem' } }
+    it do should contain_package('facter').with(
+      'ensure'   => 'present',
+      'provider' => 'gem',
+    ) end
+  end
+end

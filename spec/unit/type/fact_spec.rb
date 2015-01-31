@@ -19,6 +19,17 @@ describe Puppet::Type.type(:fact) do
     end
   end
 
+  describe "when validating content" do
+    it { described_class.provider_feature(:content).should_not be_nil }
+  end
+
+  describe "when validating target" do
+    it { described_class.provider_feature(:target).should be_nil #can be nil
+    it "should have :name as default value" do
+      #??
+    end
+  end
+
   it "should have name as the namevar" do
     described_class.key_attributes.should == [:name]
   end

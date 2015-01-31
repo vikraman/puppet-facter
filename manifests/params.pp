@@ -1,19 +1,11 @@
 class facter::params {
-
-  $install_options = undef
-
-  case $::osfamily {
-    'debian': {}
-    'gentoo': {
-      $package_name  = 'dev-ruby/facter'
-      $provider      = 'portage'
+  case $::operatingsystem {
+    'Gentoo': { $package_name = 'dev-ruby/facter' }
+    'OpenSuSE': {
+      if $::operatingsystemrelease > '13.2' {
+        $package_name = 'ruby2.1-rubygem-facter'
+      }
     }
-    'redhat': {}
-    'suse': {
-      $pkgname  = 'facter'
-      $provider = 'zypper'
-    }
-    default: { fail("$::osfamily is not supported") }
+    default: { $package_name = 'facter' }
   }
-
 }
