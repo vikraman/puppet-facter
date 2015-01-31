@@ -9,14 +9,29 @@ describe 'facter' do
   end
 
   context 'when using distro provider' do
-    context 'on openSUSE, SLE, Debian' do
+    context 'on openSUSE, SLE' do
+      let(:facts) do
+        {
+          :operatingsystem => 'OpenSuSE',
+          :operatingsystemrelease => '13.2',
+        }
+      end
+      it { should contain_package('facter').with_ensure('present') }
+    end
+
+    context 'on Debian' do
+      let(:facts) do
+        {
+          :operatingsystem => 'Debian',
+        }
+      end
       it { should contain_package('facter').with_ensure('present') }
     end
 
     context 'on openSUSE Tumbleweed' do
       let(:facts) do
         {
-          :operatingsystem => 'OpenSuSE', 
+          :operatingsystem => 'OpenSuSE',
           :operatingsystemrelease => '13.3',
         }
       end

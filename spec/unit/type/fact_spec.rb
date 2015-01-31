@@ -24,7 +24,7 @@ describe Puppet::Type.type(:fact) do
   end
 
   describe "when validating target" do
-    it { described_class.provider_feature(:target).should be_nil #can be nil
+    it { described_class.provider_feature(:target).should be_nil } #can be nil
     it "should have :name as default value" do
       #??
     end

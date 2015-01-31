@@ -1,0 +1,1 @@
+class facter::package::gentoo {}
