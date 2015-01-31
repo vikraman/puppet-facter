@@ -20,13 +20,31 @@ describe Puppet::Type.type(:fact) do
   end
 
   describe "when validating content" do
-    it { described_class.provider_feature(:content).should_not be_nil }
+
+    it "should reject only whitespace" do
+      expect { described_class.new(:name => "environment", :content => " ") }.to raise_error
+    end
+
+    it "should accept other values" do
+      expect { described_class.new(:name => "environment", :content => "production") }.to_not raise_error
+      expect { described_class.new(:name => "environment", :content => " production") }.to_not raise_error
+    end
   end
 
   describe "when validating target" do
-    it { described_class.provider_feature(:target).should be_nil } #can be nil
+
+    resource = described_class.new(:name => "environment")
+
+    it "can be optional" do
+      expect { resource }.to_not raise_error
+    end
+
     it "should have :name as default value" do
-      #??
+      resource.should(:target).should == resource[:name]
+    end
+
+    it "should accept specified values" do
+      described_class.new(:name => "environment", :target => "env").should(:target).should == "env"
     end
   end
 

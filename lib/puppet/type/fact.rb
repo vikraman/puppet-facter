@@ -14,6 +14,9 @@ Puppet::Type.newtype(:fact) do
 
   newproperty(:content) do
     desc "The value of the fact"
+    validate do |value|
+      raise ArgumentError, "Content cannot be whitespace" if value.match(/^\s+$/)
+    end
   end
 
   newproperty(:target) do
