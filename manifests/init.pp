@@ -1,5 +1,5 @@
 class facter (
-  $packge_name     = undef,
+  $package_name    = undef,
   $ensure          = 'present',
   $provider        = undef,
   $install_options = undef,

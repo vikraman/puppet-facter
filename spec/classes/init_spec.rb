@@ -20,11 +20,7 @@ describe 'facter' do
     end
 
     context 'on Debian' do
-      let(:facts) do
-        {
-          :operatingsystem => 'Debian',
-        }
-      end
+      let(:facts) { { :operatingsystem => 'Debian' } }
       it { should contain_package('facter').with_ensure('present') }
     end
 
@@ -50,6 +46,7 @@ describe 'facter' do
 
   context 'when using gem as provider' do
     let(:params) { { :provider => 'gem' } }
+    let(:facts) { { :operatingsystem => 'Gentoo' } }
     it do should contain_package('facter').with(
       'ensure'   => 'present',
       'provider' => 'gem',
