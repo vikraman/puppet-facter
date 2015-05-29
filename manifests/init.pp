@@ -11,11 +11,14 @@
 # }
 #
 class facter (
-  $package_name    = $facter::params::package_name,
-  $ensure          = 'present',
-  $provider        = undef,
-  $install_options = undef,
+  $package_name     = $facter::params::package_name,
+  $ensure           = 'present',
+  $provider         = undef,
+  $install_options  = undef,
+  $remove_unmanaged = true,
 ) inherits facter::params {
+
+  validate_bool($remove_unmanaged)
 
   include facter::package
 
@@ -23,4 +26,5 @@ class facter (
   ->
   file { '/etc/facter/facts.d': ensure  => 'directory' }
 
+  resources { 'fact': purge => $remove_unmanaged }
 }

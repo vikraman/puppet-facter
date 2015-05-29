@@ -19,9 +19,13 @@ Puppet::Type.newtype(:fact) do
 
   newproperty(:content) do
     desc "The content of the fact"
-    defaultto ''
+    defaultto 'empty'
     validate do |value|
       fail("Content cannot be empty or whitespace") if value.match(/^\s*$/)
+    end
+
+    munge do |value|
+      value.to_s
     end
   end
 
