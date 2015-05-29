@@ -3,8 +3,8 @@ require 'spec_helper'
 describe Puppet::Type.type(:fact) do
 
   context "when validating content" do
-    it "should be mandatory" do
-      expect { described_class.new(:name => "environment") }.to raise_error
+    it "should not be mandatory" do
+      expect { described_class.new(:name => "environment") }.to_not raise_error
     end
 
     it "should reject empty string" do
@@ -18,6 +18,10 @@ describe Puppet::Type.type(:fact) do
     it "should accept other values" do
       expect { described_class.new(:name => "environment", :content => "production") }.to_not raise_error
       expect { described_class.new(:name => "environment", :content => " production") }.to_not raise_error
+    end
+
+    it "should default to 'empty' if not specified" do
+      described_class.new(:name => "environment").should(:content).should == "empty"
     end
   end
 
