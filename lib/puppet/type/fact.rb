@@ -6,7 +6,6 @@ Puppet::Type.newtype(:fact) do
         target  => 'env',
       }"
 
-
   ensurable do
     defaultvalues
     defaultto :present
@@ -20,12 +19,17 @@ Puppet::Type.newtype(:fact) do
   newproperty(:content) do
     desc "The content of the fact"
     defaultto 'empty'
+
     validate do |value|
-      fail("Content cannot be empty or whitespace") if value.match(/^\s*$/)
+      fail("Content cannot be empty or whitespace") if munge(value).match(/^\s*$/)
     end
 
     munge do |value|
       value.to_s
+    end
+
+    def insync?(is)
+      is.to_s == should.to_s
     end
   end
 
